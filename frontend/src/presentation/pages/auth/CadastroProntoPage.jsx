@@ -1,7 +1,11 @@
 // ONB-06 — Link pronto (só a tela; dados de exemplo do Figma)
-import { useState } from "react";
+// O QR é de verdade (aponta para o link); "Baixar QR" salva a imagem e "Pôr na bio" copia o link
+// e abre o Instagram.
+import { useCallback, useEffect, useState } from "react";
+import QRCode from "qrcode";
 import { Link } from "react-router";
 import { Button } from "@/presentation/components/ui/Button";
+import { Toast } from "@/presentation/components/ui/Toast";
 import checkIcon from "@/presentation/assets/icons/check-26.svg";
 import qrIlustrativo from "@/presentation/assets/images/qr-ilustrativo.svg";
 
@@ -11,13 +15,35 @@ const LINK = `marqueiflow.com.br/${SLUG}`;
 
 export default function CadastroProntoPage() {
   const [copiado, setCopiado] = useState(false);
+  const [aviso, setAviso] = useState(null);
+  const fecharAviso = useCallback(() => setAviso(null), []);
+  // Enquanto o QR de verdade não fica pronto, aparece o desenho ilustrativo.
+  const [qr, setQr] = useState(null);
 
-  const copiar = async () => {
+  useEffect(() => {
+    let ativo = true;
+    QRCode.toDataURL(`https://${LINK}`, {
+      width: 660,
+      margin: 2,
+      color: { dark: "#0e0e0c", light: "#ffffff" },
+    })
+      .then((url) => ativo && setQr(url))
+      .catch(() => {});
+    return () => {
+      ativo = false;
+    };
+  }, []);
+
+  const copiarLink = async () => {
     try {
       await navigator.clipboard.writeText(`https://${LINK}`);
     } catch {
       // Sem permissão de área de transferência: segue só com o aviso visual.
     }
+  };
+
+  const copiar = async () => {
+    await copiarLink();
     setCopiado(true);
     setTimeout(() => setCopiado(false), 2000);
   };
@@ -25,6 +51,22 @@ export default function CadastroProntoPage() {
   const mandarNoWhatsApp = () => {
     const texto = `Agende seu horário comigo pelo link: https://${LINK}`;
     window.open(`https://wa.me/?text=${encodeURIComponent(texto)}`, "_blank", "noopener");
+  };
+
+  // A bio do Instagram se edita no perfil: o link vai copiado e o Instagram abre na edição.
+  const porNaBio = async () => {
+    await copiarLink();
+    setAviso("Link copiado. Cole na bio do Instagram.");
+    window.open("https://www.instagram.com/accounts/edit/", "_blank", "noopener");
+  };
+
+  const baixarQr = () => {
+    if (!qr) return;
+    const a = document.createElement("a");
+    a.href = qr;
+    a.download = `qr-marqueiflow-${SLUG}.png`;
+    a.click();
+    setAviso("QR baixado.");
   };
 
   return (
@@ -56,7 +98,7 @@ export default function CadastroProntoPage() {
         </div>
 
         <div className="flex flex-col items-center gap-2.5 rounded-2xl border border-line bg-surface px-4 pt-4 pb-3.5">
-          <img src={qrIlustrativo} alt={`QR code do link ${LINK}`} width={132} height={132} />
+          <img src={qr ?? qrIlustrativo} alt={`QR code do link ${LINK}`} width={132} height={132} />
           <p className="text-[13px] font-medium text-ink-2">Para imprimir e deixar no balcão</p>
         </div>
       </main>
@@ -66,11 +108,10 @@ export default function CadastroProntoPage() {
           Mandar no WhatsApp
         </Button>
         <div className="flex w-full gap-2.5">
-          {/* TODO(ONB-06): ações quando houver back-end. */}
-          <Button variant="secundario" className="flex-1">
+          <Button variant="secundario" className="flex-1 px-3" onClick={porNaBio}>
             Pôr na bio
           </Button>
-          <Button variant="secundario" className="flex-1">
+          <Button variant="secundario" className="flex-1 px-3" onClick={baixarQr}>
             Baixar QR
           </Button>
         </div>
@@ -81,6 +122,10 @@ export default function CadastroProntoPage() {
           Ir para minha agenda
         </Link>
       </footer>
+
+      <Toast aberto={aviso !== null} onFechar={fecharAviso}>
+        {aviso}
+      </Toast>
     </div>
   );
 }

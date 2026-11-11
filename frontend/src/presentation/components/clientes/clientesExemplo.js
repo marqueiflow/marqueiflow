@@ -48,6 +48,16 @@ export const CLIENTES = [
     total: "R$ 300",
     sumido: true,
   },
+  {
+    id: 6,
+    iniciais: "TM",
+    nome: "Thiago Moreira",
+    whatsapp: "(19) 9 9567-8901",
+    ultimaVisita: "Há 3 dias · 1 visita",
+    visitas: 1,
+    total: "R$ 40",
+    novo: true,
+  },
 ];
 
 /** Cliente de exemplo pelo id da rota; undefined se não existir. */

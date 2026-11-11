@@ -13,14 +13,10 @@ export function Toast({ aberto, onFechar, children, duracao = 2500 }) {
   }, [aberto, onFechar, duracao]);
 
   return (
-    <div
-      role="status"
-      aria-live="polite"
-      className="pointer-events-none fixed inset-x-0 bottom-30 z-50 flex justify-center px-5"
-    >
+    <div role="status" aria-live="polite" className="aviso-area">
       {aberto && (
-        <p className="flex items-center gap-2.5 rounded-full bg-ink py-3 pr-4.5 pl-3.5 text-sm leading-[normal] font-medium text-surface">
-          <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-success">
+        <p className="aviso">
+          <span className="aviso-icone">
             <img src={checkIcon} alt="" width={14} height={14} />
           </span>
           {children}

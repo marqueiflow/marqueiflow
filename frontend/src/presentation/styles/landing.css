@@ -1,0 +1,909 @@
+/*
+ * Landing page (rota "/"): estilos dos componentes em components/landing e da HomePage.
+ * As cores vêm das variáveis do global.css (var(--color-...)).
+ * @media (min-width: 1024px) = computador; fora dele, celular.
+ *
+ * line-height: var(--tw-leading, X) quer dizer "use a altura de linha definida por quem está em
+ * volta; se ninguém definiu, use X". "--tw-leading: normal" é quem define para o que está dentro.
+ */
+
+/* ---------- Página ---------- */
+.landing {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  background-color: var(--color-paper);
+}
+
+.landing-conteudo {
+  flex: 1;
+}
+
+/* ---------- Topo ---------- */
+.landing-topo {
+  margin-inline: auto;
+  display: flex;
+  width: 100%;
+  max-width: 1160px;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 12px;
+  padding-right: 12px;
+  padding-bottom: 4px;
+  padding-left: 20px;
+}
+
+@media (min-width: 1024px) {
+  .landing-topo {
+    padding-inline: 20px;
+    padding-block: 24px;
+  }
+}
+
+.landing-topo-logo {
+  font-size: 22px;
+}
+
+@media (min-width: 1024px) {
+  .landing-topo-logo {
+    font-size: 26px;
+  }
+}
+
+.landing-topo-acoes {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.landing-topo-criar {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .landing-topo-criar {
+    display: inline-flex;
+  }
+}
+
+/* ---------- Chamada principal ---------- */
+.landing-hero {
+  margin-inline: auto;
+  display: flex;
+  width: 100%;
+  max-width: 1160px;
+  flex-direction: column;
+  gap: 16px;
+  padding-inline: 20px;
+  padding-top: 28px;
+  padding-bottom: 36px;
+  --tw-leading: normal;
+  line-height: normal;
+}
+
+@media (min-width: 1024px) {
+  .landing-hero {
+    flex-direction: row;
+    align-items: center;
+    gap: 64px;
+    padding-top: 64px;
+    padding-bottom: 96px;
+  }
+}
+
+.landing-hero-texto {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+@media (min-width: 1024px) {
+  .landing-hero-texto {
+    flex: 1;
+    gap: 20px;
+  }
+}
+
+.landing-hero-selo {
+  align-self: flex-start;
+  border-radius: 9999px;
+  background-color: var(--color-accent-soft);
+  padding-inline: 12px;
+  padding-block: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-accent-strong);
+}
+
+@media (min-width: 1024px) {
+  .landing-hero-selo {
+    font-size: 14px;
+    line-height: var(--tw-leading, calc(20 / 14));
+  }
+}
+
+.landing-hero-titulo {
+  font-size: 36px;
+  --tw-leading: 1.05;
+  line-height: 1.05;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: var(--color-ink);
+}
+
+@media (min-width: 1024px) {
+  .landing-hero-titulo {
+    font-size: 60px;
+    --tw-leading: 1.02;
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+  }
+}
+
+.landing-hero-subtitulo {
+  font-size: 16px;
+  --tw-leading: 1.45;
+  line-height: 1.45;
+  color: var(--color-ink-2);
+}
+
+@media (min-width: 1024px) {
+  .landing-hero-subtitulo {
+    font-size: 19px;
+  }
+}
+
+.landing-hero-acao {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+@media (min-width: 1024px) {
+  .landing-hero-acao {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.landing-hero-botao {
+  width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .landing-hero-botao {
+    width: auto;
+  }
+}
+
+.landing-hero-nota {
+  text-align: center;
+  font-size: 13px;
+  color: var(--color-ink-2);
+}
+
+@media (min-width: 1024px) {
+  .landing-hero-nota {
+    text-align: left;
+    font-size: 14px;
+    line-height: var(--tw-leading, calc(20 / 14));
+  }
+}
+
+.landing-previa {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+@media (min-width: 1024px) {
+  .landing-previa {
+    width: 456px;
+    flex-shrink: 0;
+  }
+}
+
+.landing-previa-proximo {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  border-radius: 16px;
+  background-color: var(--color-ink);
+  padding-inline: 20px;
+  padding-top: 18px;
+  padding-bottom: 20px;
+}
+
+@media (min-width: 1024px) {
+  .landing-previa-proximo {
+    display: flex;
+  }
+}
+
+.landing-previa-proximo-rotulo {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-ink-3);
+}
+
+.landing-previa-proximo-titulo {
+  font-size: 24px;
+  line-height: var(--tw-leading, calc(32 / 24));
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--color-surface);
+}
+
+.landing-previa-proximo-nome {
+  margin-left: 10px;
+}
+
+.landing-previa-proximo-detalhe {
+  font-size: 14px;
+  line-height: var(--tw-leading, calc(20 / 14));
+  color: var(--color-ink-3);
+}
+
+.landing-previa-agenda {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border-radius: 16px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: var(--color-line);
+  background-color: var(--color-surface);
+  padding: 16px;
+}
+
+@media (min-width: 1024px) {
+  .landing-previa-agenda {
+    padding-inline: 20px;
+    padding-block: 18px;
+  }
+}
+
+.landing-previa-agenda-rotulo {
+  font-size: 13px;
+  color: var(--color-ink-2);
+}
+
+.landing-previa-horarios {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.landing-previa-horario {
+  width: 100%;
+}
+
+.landing-previa-aviso {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.landing-previa-aviso-texto {
+  font-size: 14px;
+  line-height: var(--tw-leading, calc(20 / 14));
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+/* ---------- Seção com título (base das seções) ---------- */
+.landing-secao {
+  margin-inline: auto;
+  display: flex;
+  width: 100%;
+  max-width: 1160px;
+  flex-direction: column;
+  gap: 16px;
+  padding-inline: 20px;
+  padding-block: 32px;
+  --tw-leading: normal;
+  line-height: normal;
+}
+
+@media (min-width: 1024px) {
+  .landing-secao {
+    gap: 32px;
+    padding-block: 72px;
+  }
+}
+
+.landing-secao-cabecalho {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+@media (min-width: 1024px) {
+  .landing-secao-cabecalho {
+    gap: 10px;
+  }
+}
+
+.landing-secao-titulo {
+  font-size: 26px;
+  --tw-leading: 1.15;
+  line-height: 1.15;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--color-ink);
+}
+
+@media (min-width: 1024px) {
+  .landing-secao-titulo {
+    font-size: 38px;
+    --tw-leading: 1.1;
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+  }
+}
+
+.landing-secao-subtitulo {
+  font-size: 15px;
+  --tw-leading: 1.45;
+  line-height: 1.45;
+  color: var(--color-ink-2);
+}
+
+@media (min-width: 1024px) {
+  .landing-secao-subtitulo {
+    font-size: 17px;
+  }
+}
+
+/* ---------- Como funciona ---------- */
+.landing-passos {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+@media (min-width: 1024px) {
+  .landing-passos {
+    flex-direction: row;
+  }
+}
+
+.landing-passo {
+  display: flex;
+  gap: 14px;
+  border-radius: 16px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: var(--color-line);
+  background-color: var(--color-surface);
+  padding: 16px;
+}
+
+@media (min-width: 1024px) {
+  .landing-passo {
+    flex: 1;
+    flex-direction: column;
+    padding: 24px;
+  }
+}
+
+.landing-passo-numero {
+  display: flex;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background-color: var(--color-ink);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-surface);
+}
+
+@media (min-width: 1024px) {
+  .landing-passo-numero {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+    line-height: var(--tw-leading, 1.5);
+  }
+}
+
+.landing-passo-texto {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 4px;
+}
+
+@media (min-width: 1024px) {
+  .landing-passo-texto {
+    gap: 14px;
+  }
+}
+
+.landing-passo-titulo {
+  font-size: 16px;
+  line-height: var(--tw-leading, 1.5);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
+}
+
+@media (min-width: 1024px) {
+  .landing-passo-titulo {
+    font-size: 19px;
+    letter-spacing: -0.015em;
+  }
+}
+
+.landing-passo-descricao {
+  font-size: 14px;
+  --tw-leading: 1.45;
+  line-height: 1.45;
+  color: var(--color-ink-2);
+}
+
+@media (min-width: 1024px) {
+  .landing-passo-descricao {
+    font-size: 15px;
+    --tw-leading: 1.5;
+    line-height: 1.5;
+  }
+}
+
+/* ---------- Vantagens ---------- */
+.landing-vantagens {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 16px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: var(--color-line);
+  background-color: var(--color-surface);
+}
+
+@media (min-width: 1024px) {
+  .landing-vantagens {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    overflow: visible;
+    border-radius: 0;
+    border-style: solid;
+    border-width: 0;
+    background-color: transparent;
+  }
+}
+
+.landing-vantagem {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 14px;
+}
+
+@media (min-width: 1024px) {
+  .landing-vantagem {
+    gap: 16px;
+    border-radius: 16px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--color-line);
+    background-color: var(--color-surface);
+    padding: 24px;
+  }
+}
+
+.landing-vantagem-divisoria {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 64px;
+  height: 1px;
+  background-color: var(--color-line);
+}
+
+@media (min-width: 1024px) {
+  .landing-vantagem-divisoria {
+    display: none;
+  }
+}
+
+.landing-vantagem-icone {
+  display: flex;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background-color: var(--color-paper);
+}
+
+@media (min-width: 1024px) {
+  .landing-vantagem-icone {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .landing-vantagem-icone-img {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.landing-vantagem-texto {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 2px;
+}
+
+@media (min-width: 1024px) {
+  .landing-vantagem-texto {
+    gap: 4px;
+  }
+}
+
+.landing-vantagem-titulo {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
+}
+
+@media (min-width: 1024px) {
+  .landing-vantagem-titulo {
+    font-size: 18px;
+    line-height: var(--tw-leading, calc(28 / 18));
+  }
+}
+
+.landing-vantagem-descricao {
+  font-size: 13px;
+  --tw-leading: 1.4;
+  line-height: 1.4;
+  color: var(--color-ink-2);
+}
+
+@media (min-width: 1024px) {
+  .landing-vantagem-descricao {
+    font-size: 15px;
+    --tw-leading: 1.5;
+    line-height: 1.5;
+  }
+}
+
+/* ---------- Para quem ---------- */
+@media (min-width: 1024px) {
+  .landing-para-quem {
+    gap: 24px;
+  }
+}
+
+.landing-profissoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+@media (min-width: 1024px) {
+  .landing-profissoes {
+    gap: 10px;
+  }
+}
+
+.landing-profissao {
+  border-radius: 12px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: var(--color-line);
+  background-color: var(--color-surface);
+  padding-inline: 14px;
+  padding-block: 10px;
+  font-size: 14px;
+  line-height: var(--tw-leading, calc(20 / 14));
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+@media (min-width: 1024px) {
+  .landing-profissao {
+    padding-inline: 18px;
+    padding-block: 12px;
+    font-size: 15px;
+  }
+}
+
+/* ---------- Preço ---------- */
+.landing-preco {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 1160px;
+  padding-inline: 20px;
+  padding-top: 16px;
+  padding-bottom: 32px;
+  --tw-leading: normal;
+  line-height: normal;
+}
+
+@media (min-width: 1024px) {
+  .landing-preco {
+    padding-top: 24px;
+    padding-bottom: 72px;
+  }
+}
+
+.landing-preco-cartao {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border-radius: 16px;
+  background-color: var(--color-ink);
+  padding-inline: 20px;
+  padding-top: 24px;
+  padding-bottom: 20px;
+}
+
+@media (min-width: 1024px) {
+  .landing-preco-cartao {
+    flex-direction: row;
+    align-items: center;
+    gap: 40px;
+    border-radius: 24px;
+    padding-inline: 48px;
+    padding-block: 44px;
+  }
+}
+
+.landing-preco-texto {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+@media (min-width: 1024px) {
+  .landing-preco-texto {
+    flex: 1;
+  }
+}
+
+.landing-preco-titulo {
+  font-size: 40px;
+  --tw-leading: 1;
+  line-height: 1;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: var(--color-surface);
+}
+
+@media (min-width: 1024px) {
+  .landing-preco-titulo {
+    font-size: 64px;
+    letter-spacing: -0.035em;
+  }
+}
+
+.landing-preco-descricao {
+  font-size: 15px;
+  --tw-leading: 1.45;
+  line-height: 1.45;
+  color: var(--color-ink-3);
+}
+
+@media (min-width: 1024px) {
+  .landing-preco-descricao {
+    font-size: 18px;
+    line-height: var(--tw-leading, calc(28 / 18));
+  }
+}
+
+.landing-preco-botao {
+  width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .landing-preco-botao {
+    height: 56px;
+    width: auto;
+    flex-shrink: 0;
+    padding-inline: 28px;
+    font-size: 17px;
+  }
+}
+
+/* ---------- Perguntas frequentes ---------- */
+.landing-perguntas {
+  margin-inline: auto;
+  display: flex;
+  width: 100%;
+  max-width: 1160px;
+  flex-direction: column;
+  gap: 16px;
+  padding-inline: 20px;
+  padding-block: 32px;
+  --tw-leading: normal;
+  line-height: normal;
+}
+
+@media (min-width: 1024px) {
+  .landing-perguntas {
+    flex-direction: row;
+    gap: 64px;
+    padding-top: 24px;
+    padding-bottom: 96px;
+  }
+}
+
+.landing-perguntas-cabecalho {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+@media (min-width: 1024px) {
+  .landing-perguntas-cabecalho {
+    width: 360px;
+    flex-shrink: 0;
+  }
+}
+
+.landing-perguntas-contato {
+  display: none;
+  font-size: 15px;
+  --tw-leading: 1.5;
+  line-height: 1.5;
+  color: var(--color-ink-2);
+}
+
+@media (min-width: 1024px) {
+  .landing-perguntas-contato {
+    display: block;
+  }
+}
+
+.landing-perguntas-email {
+  text-underline-offset: 2px;
+}
+
+@media (hover: hover) {
+  .landing-perguntas-email:hover {
+    text-decoration-line: underline;
+  }
+}
+
+@media (min-width: 1024px) {
+  .landing-perguntas-lista {
+    flex: 1;
+  }
+}
+
+.landing-pergunta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-inline: 16px;
+  padding-block: 14px;
+}
+
+@media (min-width: 1024px) {
+  .landing-pergunta {
+    gap: 6px;
+    padding-inline: 24px;
+    padding-block: 20px;
+  }
+}
+
+.landing-pergunta-titulo {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
+}
+
+@media (min-width: 1024px) {
+  .landing-pergunta-titulo {
+    font-size: 17px;
+  }
+}
+
+.landing-pergunta-resposta {
+  font-size: 14px;
+  --tw-leading: 1.45;
+  line-height: 1.45;
+  color: var(--color-ink-2);
+}
+
+@media (min-width: 1024px) {
+  .landing-pergunta-resposta {
+    font-size: 15px;
+    --tw-leading: 1.5;
+    line-height: 1.5;
+  }
+}
+
+/* ---------- Rodapé ---------- */
+.landing-rodape {
+  --tw-leading: normal;
+  line-height: normal;
+}
+
+@media (min-width: 1024px) {
+  .landing-rodape {
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-color: var(--color-line);
+  }
+}
+
+.landing-rodape-conteudo {
+  margin-inline: auto;
+  display: flex;
+  width: 100%;
+  max-width: 1160px;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding-inline: 20px;
+  padding-top: 24px;
+  padding-bottom: 40px;
+}
+
+@media (min-width: 1024px) {
+  .landing-rodape-conteudo {
+    flex-direction: row;
+    justify-content: space-between;
+    padding-top: 32px;
+  }
+}
+
+.landing-rodape-marca {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+@media (min-width: 1024px) {
+  .landing-rodape-marca {
+    flex-direction: row;
+    gap: 16px;
+  }
+}
+
+.landing-rodape-logo {
+  font-size: 18px;
+  line-height: var(--tw-leading, calc(28 / 18));
+}
+
+@media (min-width: 1024px) {
+  .landing-rodape-logo {
+    font-size: 20px;
+    line-height: var(--tw-leading, 1.4);
+  }
+}
+
+.landing-rodape-texto {
+  font-size: 13px;
+  color: var(--color-ink-2);
+}
+
+@media (min-width: 1024px) {
+  .landing-rodape-texto {
+    font-size: 14px;
+    line-height: var(--tw-leading, calc(20 / 14));
+  }
+}
+
+@media (min-width: 1024px) {
+  .landing-rodape-links {
+    gap: 10px;
+    font-size: 13px;
+  }
+}

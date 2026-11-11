@@ -6,21 +6,13 @@ import { cn } from "@/presentation/utils/cn";
  * invalid: mostra o texto em vermelho (ex.: fim antes do início).
  */
 export function TimeRangeField({ label, start, end, onChange, invalid = false, className }) {
-  const input = cn(
-    "time-input relative -my-[5px] h-11 w-[39px] bg-transparent outline-none",
-    "rounded-md focus-visible:bg-surface",
-  );
+  const input = cn("intervalo-hora");
 
   return (
     <div
       role="group"
       aria-label={label}
-      className={cn(
-        "flex h-8.5 shrink-0 items-center gap-1 rounded-[10px] bg-paper px-3",
-        "text-sm font-medium text-ink tabular-nums",
-        invalid && "text-danger ring-1 ring-danger",
-        className,
-      )}
+      className={cn("intervalo", invalid && "intervalo-invalido", className)}
     >
       <input
         type="time"

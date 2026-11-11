@@ -74,31 +74,25 @@ export function BottomSheet({
   if (!open) return null;
 
   return createPortal(
-    <div className="fixed inset-0 z-50 flex items-end justify-center">
-      <div className="absolute inset-0 bg-ink/45" onClick={onClose} aria-hidden="true" />
+    <div className="folha-fundo">
+      <div className="folha-escurecimento" onClick={onClose} aria-hidden="true" />
       <div
         ref={folhaRef}
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
         tabIndex={-1}
-        className={cn(
-          "relative flex max-h-[92dvh] w-full max-w-[430px] flex-col gap-4.5 overflow-y-auto rounded-t-3xl bg-surface px-5 pt-2.5 pb-8.5 outline-none",
-          className,
-        )}
+        className={cn("folha", className)}
       >
-        <div className="flex justify-center" aria-hidden="true">
-          <div className="h-1 w-9 rounded-sm bg-line" />
+        <div className="folha-alca" aria-hidden="true">
+          <div className="folha-alca-barra" />
         </div>
-        <div className="flex items-start gap-3">
-          <div className="flex min-w-0 flex-1 flex-col gap-1.5">
-            <h2
-              id={titleId}
-              className="text-[22px] leading-[1.2] font-semibold tracking-[-0.44px] text-ink"
-            >
+        <div className="folha-cabecalho">
+          <div className="folha-textos">
+            <h2 id={titleId} className="folha-titulo">
               {title}
             </h2>
-            {description && <p className="text-[15px] leading-[1.45] text-ink-2">{description}</p>}
+            {description && <p className="folha-descricao">{description}</p>}
           </div>
           {!semFechar && (
             <IconButton
@@ -106,7 +100,7 @@ export function BottomSheet({
               iconSize={16}
               label="Fechar"
               onClick={onClose}
-              className="size-9 border-0 bg-paper before:-inset-1"
+              className="folha-fechar"
             />
           )}
         </div>

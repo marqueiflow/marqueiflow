@@ -5,6 +5,7 @@ import { Button } from "@/presentation/components/ui/Button";
 import { ChoiceChips } from "@/presentation/components/ui/ChoiceChips";
 import { ListGroup } from "@/presentation/components/ui/ListGroup";
 import { TextField } from "@/presentation/components/ui/TextField";
+import { cn } from "@/presentation/utils/cn";
 import calendarioIcon from "@/presentation/assets/icons/calendario-18.svg";
 import relogioIcon from "@/presentation/assets/icons/relogio-18.svg";
 import setaIcon from "@/presentation/assets/icons/seta-direita-16-clara.svg";
@@ -16,6 +17,19 @@ const tipos = [
 ];
 
 // Exemplo até existir back-end.
+const DIAS = [
+  "Seg, 23 de novembro",
+  "Ter, 24 de novembro",
+  "Qua, 25 de novembro",
+  "Qui, 26 de novembro",
+  "Sex, 27 de novembro",
+  "Sáb, 28 de novembro",
+];
+const HORAS = ["09:00", "11:00", "13:00", "15:00", "17:00", "19:00"];
+
+// Nos botões de escolha o dia vai curto ("Ter 24/11"), para caberem lado a lado.
+const curto = (texto) => texto.replace(/, (\d+) de novembro/, " $1/11");
+
 const NOVO = {
   tipo: "periodo",
   dia: "Ter, 24 de novembro",
@@ -29,18 +43,45 @@ const NOVO = {
  * Com "bloqueio" ({ tipo, dia, das, ate, motivo }): edita esse bloqueio (P8), com "Remover bloqueio".
  * Para trocar de bloqueio, mude a key (os campos começam com os valores dele).
  * onRemover: tocou em "Remover bloqueio".
+ * Tocar numa linha (Dia, Das, Até) abre as opções logo abaixo dela; escolher uma fecha de novo.
  */
 export function BloquearHorarioSheet({ open, onClose, bloqueio, onRemover }) {
   const inicial = bloqueio ?? NOVO;
   const [tipo, setTipo] = useState(inicial.tipo);
   const [motivo, setMotivo] = useState(inicial.motivo);
+  const [dia, setDia] = useState(inicial.dia);
+  const [diaFim, setDiaFim] = useState(DIAS[DIAS.length - 1]);
+  const [das, setDas] = useState(inicial.das ?? NOVO.das);
+  const [ate, setAte] = useState(inicial.ate ?? NOVO.ate);
+  // Qual linha está com as opções abertas (o id dela) ou null.
+  const [aberta, setAberta] = useState(null);
 
-  // Dia inteiro não tem horas.
-  const quando = [
-    { id: "dia", icone: calendarioIcon, label: "Dia", valor: inicial.dia },
-    { id: "das", icone: relogioIcon, label: "Das", valor: inicial.das ?? NOVO.das },
-    { id: "ate", icone: relogioIcon, label: "Até", valor: inicial.ate ?? NOVO.ate },
-  ].filter((q) => q.id === "dia" || tipo !== "dia");
+  // O dia do bloqueio entra na lista se ainda não estiver nela (ex.: um que já passou).
+  const dias = DIAS.includes(inicial.dia) ? DIAS : [inicial.dia, ...DIAS];
+  const linhaDia = { id: "dia", icone: calendarioIcon, valor: dia, lista: dias, onChange: setDia };
+  const linhaFim = {
+    id: "fim",
+    icone: calendarioIcon,
+    label: "Até",
+    valor: diaFim,
+    lista: dias,
+    onChange: setDiaFim,
+  };
+  const linhasHoras = [
+    { id: "das", icone: relogioIcon, label: "Das", valor: das, lista: HORAS, onChange: setDas },
+    { id: "ate", icone: relogioIcon, label: "Até", valor: ate, lista: HORAS, onChange: setAte },
+  ];
+  // Período: um dia e as horas. Dia inteiro: só o dia. Vários dias: do primeiro ao último dia.
+  const quando = {
+    periodo: [{ ...linhaDia, label: "Dia" }, ...linhasHoras],
+    dia: [{ ...linhaDia, label: "Dia" }],
+    varios: [{ ...linhaDia, label: "De" }, linhaFim],
+  }[tipo];
+
+  const trocarTipo = (novo) => {
+    setTipo(novo);
+    setAberta(null);
+  };
 
   return (
     <BottomSheet
@@ -53,22 +94,45 @@ export function BloquearHorarioSheet({ open, onClose, bloqueio, onRemover }) {
           : "Os horários somem do seu link. Quem já marcou não é afetado."
       }
     >
-      <ChoiceChips label="Tipo de bloqueio" options={tipos} value={tipo} onChange={setTipo} />
+      <ChoiceChips label="Tipo de bloqueio" options={tipos} value={tipo} onChange={trocarTipo} />
 
-      {/* TODO(AJ-06): escolher dia e horas. */}
       <ListGroup inset className="leading-[normal]">
-        {quando.map((q) => (
-          <button
-            key={q.id}
-            type="button"
-            className="flex pressable items-center gap-2.5 py-[13px] pr-3.5 pl-4 text-left active:scale-100 active:bg-paper"
-          >
-            <img src={q.icone} alt="" width={18} height={18} className="shrink-0" />
-            <span className="min-w-0 flex-1 text-sm text-ink-2">{q.label}</span>
-            <span className="text-sm font-semibold tracking-[-0.14px] text-ink">{q.valor}</span>
-            <img src={setaIcon} alt="" width={16} height={16} className="shrink-0" />
-          </button>
-        ))}
+        {quando.map((q) => {
+          const estaAberta = aberta === q.id;
+          return (
+            <div key={q.id} className="flex flex-col">
+              <button
+                type="button"
+                aria-expanded={estaAberta}
+                onClick={() => setAberta(estaAberta ? null : q.id)}
+                className="flex pressable items-center gap-2.5 py-[13px] pr-3.5 pl-4 text-left active:scale-100 active:bg-paper"
+              >
+                <img src={q.icone} alt="" width={18} height={18} className="shrink-0" />
+                <span className="min-w-0 flex-1 text-sm text-ink-2">{q.label}</span>
+                <span className="text-sm font-semibold tracking-[-0.14px] text-ink">{q.valor}</span>
+                <img
+                  src={setaIcon}
+                  alt=""
+                  width={16}
+                  height={16}
+                  className={cn("shrink-0 transition-transform", estaAberta && "rotate-90")}
+                />
+              </button>
+              {estaAberta && (
+                <ChoiceChips
+                  label={q.label}
+                  options={q.lista.map((v) => ({ value: v, label: curto(v) }))}
+                  value={q.valor}
+                  onChange={(v) => {
+                    q.onChange(v);
+                    setAberta(null);
+                  }}
+                  className="px-4 pt-1 pb-3.5"
+                />
+              )}
+            </div>
+          );
+        })}
       </ListGroup>
 
       <TextField

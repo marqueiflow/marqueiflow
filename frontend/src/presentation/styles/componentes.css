@@ -1,0 +1,901 @@
+/*
+ * Componentes base (components/ui): botão, campo de texto, lista, modal, etc.
+ * As cores vêm das variáveis do global.css (var(--color-...)).
+ *
+ * Ficam dentro de "@layer components" de propósito: assim quem usa o componente ainda consegue
+ * ajustar por cima (ex.: <Button className="w-full">), e os estilos das áreas também.
+ *
+ * line-height: var(--tw-leading, X) quer dizer "use a altura de linha definida por quem está em
+ * volta; se ninguém definiu, use X". É o que deixa os textos com a altura do Figma dentro das telas.
+ */
+
+@layer components {
+  /* ---------- Botão ---------- */
+  .botao {
+    display: inline-flex;
+    height: 52px;
+    transition:
+      transform 120ms ease-out,
+      opacity 120ms ease-out;
+    -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-radius: 14px;
+    padding-inline: 24px;
+    font-size: 16px;
+    line-height: var(--tw-leading, 1.5);
+    font-weight: 600;
+    letter-spacing: -0.16px;
+  }
+
+  .botao:active:not(:disabled) {
+    transform: scale(0.97);
+  }
+
+  .botao:focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 2px;
+  }
+
+  .botao:disabled {
+    cursor: default;
+    opacity: 0.5;
+  }
+
+  .botao-primario {
+    background-color: var(--color-ink);
+    color: var(--color-surface);
+  }
+
+  .botao-secundario {
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--color-line);
+    background-color: var(--color-surface);
+    color: var(--color-ink);
+  }
+
+  .botao-texto {
+    color: var(--color-ink);
+  }
+
+  .botao-perigo {
+    background-color: var(--color-danger);
+    color: var(--color-surface);
+  }
+
+  .botao-destaque {
+    background-color: var(--color-accent);
+    color: var(--color-ink);
+  }
+
+  /* ---------- Botão de ícone (redondo) ---------- */
+  .botao-icone {
+    position: relative;
+    display: flex;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    transition:
+      transform 120ms ease-out,
+      opacity 120ms ease-out;
+    -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--color-line);
+    background-color: var(--color-surface);
+  }
+
+  .botao-icone:active:not(:disabled) {
+    transform: scale(0.97);
+  }
+
+  .botao-icone:focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 2px;
+  }
+
+  .botao-icone:disabled {
+    cursor: default;
+    opacity: 0.5;
+  }
+
+  .botao-icone::before {
+    position: absolute;
+    content: "";
+    inset: -2px;
+  }
+
+  /* ---------- Botão tracejado (adicionar) ---------- */
+  .botao-tracejado {
+    display: flex;
+    height: 56px;
+    width: 100%;
+    transition:
+      transform 120ms ease-out,
+      opacity 120ms ease-out;
+    -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
+    align-items: center;
+    gap: 10px;
+    border-radius: 16px;
+    border-width: 1.5px;
+    border-style: dashed;
+    border-color: var(--color-ink-3);
+    padding-inline: 18px;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: -0.15px;
+    color: var(--color-ink);
+  }
+
+  .botao-tracejado:active:not(:disabled) {
+    transform: scale(0.97);
+  }
+
+  .botao-tracejado:focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 2px;
+  }
+
+  .botao-tracejado:disabled {
+    cursor: default;
+    opacity: 0.5;
+  }
+
+  /* ---------- Logo ---------- */
+  .logo {
+    font-size: 26px;
+    --tw-leading: 1;
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: -0.05em;
+    color: var(--color-ink);
+  }
+
+  .logo-f {
+    letter-spacing: -0.08em;
+  }
+
+  .logo-ponto {
+    color: var(--color-accent);
+  }
+
+  /* ---------- Lista agrupada (cartão com divisórias) ---------- */
+  .lista {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: 16px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--color-line);
+    background-color: var(--color-surface);
+  }
+
+  .lista-divisoria {
+    display: flex;
+  }
+
+  .lista-divisoria-recuo {
+    padding-left: 16px;
+  }
+
+  .lista-divisoria-linha {
+    height: 1px;
+    flex: 1;
+    background-color: var(--color-line);
+  }
+
+  /* ---------- Linha de lista (título, descrição e valor) ---------- */
+  .linha {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .linha-conteudo {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .linha-texto {
+    display: flex;
+    min-width: 0;
+    flex: 1;
+    flex-direction: column;
+  }
+
+  .linha-titulo {
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+
+  .linha-descricao {
+    font-size: 13px;
+    color: var(--color-ink-2);
+  }
+
+  .linha-valor {
+    flex-shrink: 0;
+    font-weight: 600;
+    color: var(--color-ink);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .linha-conteudo-lg {
+    gap: 16px;
+    padding-inline: 20px;
+    padding-block: 16px;
+  }
+
+  .linha-titulo-lg {
+    font-size: 17px;
+    letter-spacing: -0.17px;
+  }
+
+  .linha-texto-lg {
+    gap: 4px;
+  }
+
+  .linha-descricao-lg {
+    --tw-leading: 1.5;
+    line-height: 1.5;
+  }
+
+  .linha-conteudo-md {
+    gap: 12px;
+    padding-inline: 16px;
+    padding-block: 14px;
+  }
+
+  .linha-titulo-md {
+    font-size: 15px;
+    letter-spacing: -0.15px;
+  }
+
+  .linha-texto-md {
+    gap: 2px;
+  }
+
+  .linha-descricao-md {
+    --tw-leading: 1.4;
+    line-height: 1.4;
+  }
+
+  /* ---------- Selo de status ---------- */
+  .selo {
+    display: inline-flex;
+    height: 28px;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 6px;
+    border-radius: 14px;
+    padding-right: 12px;
+    padding-left: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .selo-confirmado {
+    background-color: var(--color-success-soft);
+    color: var(--color-success);
+  }
+
+  .selo-aguardando {
+    background-color: var(--color-accent-soft);
+    color: var(--color-accent-strong);
+  }
+
+  .selo-faltou {
+    background-color: var(--color-paper);
+    color: var(--color-danger);
+  }
+
+  /* ---------- Interruptor ---------- */
+  .interruptor {
+    position: relative;
+    flex-shrink: 0;
+    transition:
+      transform 120ms ease-out,
+      opacity 120ms ease-out;
+    -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
+  }
+
+  .interruptor:active:not(:disabled) {
+    transform: scale(0.97);
+  }
+
+  .interruptor:focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 2px;
+  }
+
+  .interruptor:disabled {
+    cursor: default;
+    opacity: 0.5;
+  }
+
+  .interruptor::before {
+    position: absolute;
+    inset-inline: 0;
+    content: "";
+    inset-block: -8px;
+  }
+
+  .interruptor-md {
+    height: 28px;
+    width: 48px;
+  }
+
+  .interruptor-sm {
+    height: 26px;
+    width: 44px;
+  }
+
+  /* ---------- Controle segmentado (Todos / Sumidos / Novos) ---------- */
+  .segmentado {
+    display: flex;
+    gap: 4px;
+    border-radius: 12px;
+    background-color: var(--color-line);
+    padding: 4px;
+    --tw-leading: normal;
+    line-height: normal;
+  }
+
+  .segmentado-opcao {
+    position: relative;
+    display: flex;
+    height: 36px;
+    flex: 1;
+    transition:
+      transform 120ms ease-out,
+      opacity 120ms ease-out;
+    -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    border-radius: 9px;
+  }
+
+  .segmentado-opcao:active:not(:disabled) {
+    transform: scale(0.97);
+  }
+
+  .segmentado-opcao:focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 2px;
+  }
+
+  .segmentado-opcao:disabled {
+    cursor: default;
+    opacity: 0.5;
+  }
+
+  .segmentado-opcao::before {
+    position: absolute;
+    inset-inline: 0;
+    content: "";
+    inset-block: -4px;
+  }
+
+  .segmentado-opcao-ativa {
+    background-color: var(--color-surface);
+    color: var(--color-ink);
+  }
+
+  .segmentado-opcao-inativa {
+    color: var(--color-ink-2);
+  }
+
+  .segmentado-rotulo {
+    font-size: 14px;
+    line-height: var(--tw-leading, calc(20 / 14));
+  }
+
+  .segmentado-rotulo-ativo {
+    font-weight: 600;
+  }
+
+  .segmentado-rotulo-inativo {
+    font-weight: 500;
+  }
+
+  .segmentado-contagem {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-ink-2);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ---------- Opções em pílulas (escolha única) ---------- */
+  .opcoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .opcao {
+    position: relative;
+    display: flex;
+    height: 40px;
+    transition:
+      transform 120ms ease-out,
+      opacity 120ms ease-out;
+    -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    padding-inline: 12px;
+    font-size: 14px;
+    line-height: var(--tw-leading, calc(20 / 14));
+    font-weight: 600;
+    letter-spacing: -0.14px;
+  }
+
+  .opcao:active:not(:disabled) {
+    transform: scale(0.97);
+  }
+
+  .opcao:focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 2px;
+  }
+
+  .opcao:disabled {
+    cursor: default;
+    opacity: 0.5;
+  }
+
+  .opcao::before {
+    position: absolute;
+    inset-inline: 0;
+    content: "";
+    inset-block: -2px;
+  }
+
+  .opcao-ativa {
+    background-color: var(--color-ink);
+    color: var(--color-surface);
+  }
+
+  .opcao-inativa {
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--color-line);
+    background-color: var(--color-surface);
+    color: var(--color-ink);
+  }
+
+  /* ---------- Horário (livre, selecionado, indisponível) ---------- */
+  .horario {
+    display: flex;
+    height: 48px;
+    width: 76px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    font-size: 16px;
+    line-height: var(--tw-leading, 1.5);
+    font-weight: 600;
+    letter-spacing: -0.16px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .horario-livre {
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--color-line);
+    background-color: var(--color-surface);
+    color: var(--color-ink);
+  }
+
+  .horario-selecionado {
+    background-color: var(--color-accent);
+    color: var(--color-ink);
+  }
+
+  .horario-indisponivel {
+    background-color: var(--color-paper);
+    color: var(--color-ink-3);
+    text-decoration-line: line-through;
+  }
+
+  .horario-botao {
+    transition:
+      transform 120ms ease-out,
+      opacity 120ms ease-out;
+    -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
+  }
+
+  .horario-botao:active:not(:disabled) {
+    transform: scale(0.97);
+  }
+
+  .horario-botao:focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 2px;
+  }
+
+  .horario-botao:disabled {
+    cursor: default;
+    opacity: 0.5;
+  }
+
+  /* ---------- Intervalo de horas (09:00 – 19:00) ---------- */
+  .intervalo {
+    display: flex;
+    height: 34px;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 4px;
+    border-radius: 10px;
+    background-color: var(--color-paper);
+    padding-inline: 12px;
+    font-size: 14px;
+    line-height: var(--tw-leading, calc(20 / 14));
+    font-weight: 500;
+    color: var(--color-ink);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .intervalo-invalido {
+    color: var(--color-danger);
+    box-shadow: 0 0 0 1px var(--color-danger);
+  }
+
+  .intervalo-hora {
+    position: relative;
+    margin-block: -5px;
+    height: 44px;
+    width: 39px;
+    border-radius: 6px;
+    background-color: transparent;
+    outline-style: none;
+  }
+
+  .intervalo-hora::-webkit-calendar-picker-indicator {
+    display: none;
+  }
+
+  .intervalo-hora::-webkit-datetime-edit,
+  .intervalo-hora::-webkit-datetime-edit-fields-wrapper,
+  .intervalo-hora::-webkit-datetime-edit-hour-field,
+  .intervalo-hora::-webkit-datetime-edit-minute-field {
+    padding: 0;
+  }
+
+  .intervalo-hora:focus-visible {
+    background-color: var(--color-surface);
+  }
+
+  /* ---------- Barra de passos do cadastro ---------- */
+  .passos {
+    display: flex;
+    width: 100%;
+    gap: 6px;
+  }
+
+  .passos-barra {
+    height: 3px;
+    flex: 1;
+    border-radius: 2px;
+  }
+
+  .passos-barra-feita {
+    background-color: var(--color-ink);
+  }
+
+  .passos-barra-pendente {
+    background-color: var(--color-line);
+  }
+
+  /* ---------- Foto (logo ou foto do negócio) ---------- */
+  .foto {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .foto-botao {
+    display: flex;
+    width: 72px;
+    height: 72px;
+    flex-shrink: 0;
+    transition:
+      transform 120ms ease-out,
+      opacity 120ms ease-out;
+    -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 9999px;
+    background-color: var(--color-surface);
+  }
+
+  .foto-botao:active:not(:disabled) {
+    transform: scale(0.97);
+  }
+
+  .foto-botao:focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 2px;
+  }
+
+  .foto-botao:disabled {
+    cursor: default;
+    opacity: 0.5;
+  }
+
+  .foto-botao-vazio {
+    border-width: 1.5px;
+    border-style: dashed;
+    border-color: var(--color-ink-3);
+  }
+
+  .foto-imagem {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .foto-texto {
+    display: flex;
+    min-width: 0;
+    flex: 1;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .foto-titulo {
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: -0.15px;
+    color: var(--color-ink);
+  }
+
+  .foto-descricao {
+    font-size: 13px;
+    color: var(--color-ink-2);
+  }
+
+  /* ---------- Campo de texto ---------- */
+  .campo {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .campo-rotulo {
+    font-size: 14px;
+    line-height: var(--tw-leading, calc(20 / 14));
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+
+  .campo-caixa {
+    display: flex;
+    height: 52px;
+    width: 100%;
+    align-items: center;
+    border-radius: 14px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--color-line);
+    background-color: var(--color-surface);
+    padding-inline: 16px;
+  }
+
+  .campo-caixa:focus-within {
+    border-color: var(--color-ink);
+    box-shadow: 0 0 0 0.5px var(--color-ink);
+  }
+
+  .campo-caixa-erro {
+    border-color: var(--color-danger);
+    box-shadow: 0 0 0 0.5px var(--color-danger);
+  }
+
+  .campo-caixa-erro:focus-within {
+    border-color: var(--color-danger);
+    box-shadow: 0 0 0 0.5px var(--color-danger);
+  }
+
+  .campo-caixa-com-sufixo {
+    padding-right: 14px;
+  }
+
+  .campo-prefixo {
+    flex-shrink: 0;
+    font-size: 16px;
+    line-height: var(--tw-leading, 1.5);
+    color: var(--color-ink-2);
+  }
+
+  .campo-entrada {
+    height: 100%;
+    min-width: 0;
+    flex: 1;
+    background-color: transparent;
+    font-size: 16px;
+    line-height: var(--tw-leading, 1.5);
+    color: var(--color-ink);
+    outline-style: none;
+  }
+
+  .campo-entrada::placeholder {
+    color: var(--color-ink-3);
+  }
+
+  .campo-sufixo {
+    margin-left: 8px;
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+  }
+
+  .campo-dica {
+    font-size: 13px;
+  }
+
+  .campo-dica-neutra {
+    font-weight: 400;
+    color: var(--color-ink-2);
+  }
+
+  .campo-dica-sucesso {
+    font-weight: 500;
+    color: var(--color-success);
+  }
+
+  .campo-dica-erro {
+    font-weight: 500;
+    color: var(--color-danger);
+  }
+
+  /* ---------- Modal que sobe de baixo (folha) ---------- */
+  .folha-fundo {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  .folha-escurecimento {
+    position: absolute;
+    inset: 0;
+    background-color: color-mix(in oklab, var(--color-ink) 45%, transparent);
+  }
+
+  .folha {
+    position: relative;
+    display: flex;
+    max-height: 92dvh;
+    width: 100%;
+    max-width: 430px;
+    flex-direction: column;
+    gap: 18px;
+    overflow-y: auto;
+    border-top-left-radius: 24px;
+    border-top-right-radius: 24px;
+    background-color: var(--color-surface);
+    padding-inline: 20px;
+    padding-top: 10px;
+    padding-bottom: 34px;
+    outline-style: none;
+  }
+
+  .folha-alca {
+    display: flex;
+    justify-content: center;
+  }
+
+  .folha-alca-barra {
+    height: 4px;
+    width: 36px;
+    border-radius: 4px;
+    background-color: var(--color-line);
+  }
+
+  .folha-cabecalho {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .folha-textos {
+    display: flex;
+    min-width: 0;
+    flex: 1;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .folha-titulo {
+    font-size: 22px;
+    --tw-leading: 1.2;
+    line-height: 1.2;
+    font-weight: 600;
+    letter-spacing: -0.44px;
+    color: var(--color-ink);
+  }
+
+  .folha-descricao {
+    font-size: 15px;
+    --tw-leading: 1.45;
+    line-height: 1.45;
+    color: var(--color-ink-2);
+  }
+
+  .folha-fechar {
+    width: 36px;
+    height: 36px;
+    border-style: solid;
+    border-width: 0;
+    background-color: var(--color-paper);
+  }
+
+  .folha-fechar::before {
+    content: "";
+    inset: -4px;
+  }
+
+  /* ---------- Aviso rápido (toast) ---------- */
+  .aviso-area {
+    pointer-events: none;
+    position: fixed;
+    inset-inline: 0;
+    bottom: 120px;
+    z-index: 50;
+    display: flex;
+    justify-content: center;
+    padding-inline: 20px;
+  }
+
+  .aviso {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 9999px;
+    background-color: var(--color-ink);
+    padding-block: 12px;
+    padding-right: 18px;
+    padding-left: 14px;
+    font-size: 14px;
+    --tw-leading: normal;
+    line-height: normal;
+    font-weight: 500;
+    color: var(--color-surface);
+  }
+
+  .aviso-icone {
+    display: flex;
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    background-color: var(--color-success);
+  }
+}

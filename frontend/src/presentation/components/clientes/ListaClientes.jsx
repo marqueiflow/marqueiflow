@@ -4,7 +4,7 @@ import setaIcon from "@/presentation/assets/icons/seta-direita-16-clara.svg";
 
 /**
  * Lista de clientes: iniciais, última visita, total gasto.
- * clientes: { id, iniciais, nome, ultimaVisita, total, sumido? }.
+ * clientes: { id, iniciais, nome, ultimaVisita, total, sumido?, novo? }.
  * sumido: a linha da última visita fica em laranja.
  */
 export function ListaClientes({ clientes, onAbrir }) {

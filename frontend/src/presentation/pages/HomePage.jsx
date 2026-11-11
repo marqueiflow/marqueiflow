@@ -10,9 +10,9 @@ import { LandingVantagens } from "@/presentation/components/landing/LandingVanta
 
 export default function HomePage() {
   return (
-    <div className="flex flex-1 flex-col bg-paper">
+    <div className="landing">
       <LandingTopo />
-      <main className="flex-1">
+      <main className="landing-conteudo">
         <LandingHero />
         <LandingComoFunciona />
         <LandingVantagens />

@@ -1,10 +1,10 @@
 import { cn } from "@/presentation/utils/cn";
 const variants = {
-  primario: "bg-ink text-surface",
-  secundario: "border border-line bg-surface text-ink",
-  texto: "text-ink",
-  perigo: "bg-danger text-surface",
-  destaque: "bg-accent text-ink",
+  primario: "botao-primario",
+  secundario: "botao-secundario",
+  texto: "botao-texto",
+  perigo: "botao-perigo",
+  destaque: "botao-destaque",
 };
 /**
  * Botão base. Primário: uma ação por tela. Perigo: ação que desfaz algo (ex.: cancelar).
@@ -15,12 +15,7 @@ export function Button({ variant = "primario", className, as: Tag = "button", ty
   return (
     <Tag
       type={Tag === "button" ? (type ?? "button") : type}
-      className={cn(
-        "inline-flex h-13 pressable items-center justify-center gap-2 rounded-[14px] px-6",
-        "text-base font-semibold tracking-[-0.16px]",
-        variants[variant],
-        className,
-      )}
+      className={cn("botao", variants[variant], className)}
       {...props}
     />
   );

@@ -1,6 +1,10 @@
 @import "@fontsource-variable/geist";
 @import "tailwindcss";
 
+/* Estilos por área: um arquivo para cada parte do app. Os componentes base vêm primeiro. */
+@import "./componentes.css";
+@import "./landing.css";
+
 /*
  * Tokens do MarqueiFlow — tirados do Figma (Identidade Visual · Paleta / Tipografia).
  * Nas telas, use só as classes geradas (bg-paper, text-ink-2, bg-accent...), nunca hex solto.

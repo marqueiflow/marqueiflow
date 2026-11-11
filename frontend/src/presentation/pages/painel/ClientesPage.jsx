@@ -1,5 +1,6 @@
 // CLT-01 — Clientes (só a tela; dados de exemplo do Figma)
 // A busca filtra a lista pelo nome (sem ligar para acentos ou maiúsculas) ou pelo WhatsApp.
+// O filtro mostra todos, só os sumidos (mais de 30 dias sem vir) ou só os novos; vale junto com a busca.
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router";
 import { PainelLayout } from "@/presentation/components/painel/PainelLayout";
@@ -31,13 +32,24 @@ const buscar = (clientes, busca) => {
   );
 };
 
+const FILTRAR = {
+  todos: () => true,
+  sumidos: (c) => c.sumido,
+  novos: (c) => c.novo,
+};
+const VAZIO = {
+  todos: "Nenhum cliente ainda.",
+  sumidos: "Nenhum cliente sumido.",
+  novos: "Nenhum cliente novo.",
+};
+
 export default function ClientesPage() {
   const navigate = useNavigate();
   const [filtro, setFiltro] = useState("todos");
   const [busca, setBusca] = useState("");
   const campoBusca = useRef(null);
   const [chamando, setChamando] = useState(false);
-  const encontrados = buscar(CLIENTES, busca);
+  const encontrados = buscar(CLIENTES.filter(FILTRAR[filtro]), busca);
 
   return (
     <PainelLayout aba="clientes" className="gap-4 pt-5">
@@ -107,11 +119,11 @@ export default function ClientesPage() {
         />
       ) : (
         <p className="rounded-2xl border border-line bg-surface px-4 py-6 text-center text-sm leading-[1.45] text-ink-2">
-          Nenhum cliente encontrado para “{busca.trim()}”.
+          {busca.trim() ? `Nenhum cliente encontrado para “${busca.trim()}”.` : VAZIO[filtro]}
         </p>
       )}
       <p className="sr-only" aria-live="polite">
-        {busca.trim() && `${encontrados.length} de ${CLIENTES.length} clientes`}
+        {(busca.trim() || filtro !== "todos") && `${encontrados.length} clientes na lista`}
       </p>
       <ChamarSumidosSheet
         key={String(chamando)}

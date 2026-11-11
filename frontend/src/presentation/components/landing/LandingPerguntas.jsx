@@ -20,38 +20,24 @@ const PERGUNTAS = [
 /** Perguntas frequentes. No computador, o título fica à esquerda e a lista à direita. */
 export function LandingPerguntas() {
   return (
-    <section
-      id="perguntas"
-      aria-labelledby="perguntas-titulo"
-      className="mx-auto flex w-full max-w-[1160px] flex-col gap-4 px-5 py-8 leading-[normal] lg:flex-row lg:gap-16 lg:pt-6 lg:pb-24"
-    >
-      <div className="flex flex-col gap-2.5 lg:w-90 lg:shrink-0">
-        <h2
-          id="perguntas-titulo"
-          className="text-[26px] leading-[1.15] font-semibold tracking-[-0.02em] text-ink lg:text-[38px] lg:leading-[1.1] lg:tracking-[-0.025em]"
-        >
+    <section id="perguntas" aria-labelledby="perguntas-titulo" className="landing-perguntas">
+      <div className="landing-perguntas-cabecalho">
+        <h2 id="perguntas-titulo" className="landing-secao-titulo">
           Perguntas frequentes
         </h2>
-        <p className="hidden text-[15px] leading-normal text-ink-2 lg:block">
+        <p className="landing-perguntas-contato">
           Ficou alguma dúvida? Fale com a gente em{" "}
-          <a href={`mailto:${EMAIL}`} className="underline-offset-2 hover:underline">
+          <a href={`mailto:${EMAIL}`} className="landing-perguntas-email">
             {EMAIL}
           </a>
           .
         </p>
       </div>
-      <ListGroup className="lg:flex-1">
+      <ListGroup className="landing-perguntas-lista">
         {PERGUNTAS.map((p) => (
-          <div
-            key={p.pergunta}
-            className="flex flex-col gap-1 px-4 py-3.5 lg:gap-1.5 lg:px-6 lg:py-5"
-          >
-            <h3 className="text-[15px] font-semibold tracking-[-0.01em] text-ink lg:text-[17px]">
-              {p.pergunta}
-            </h3>
-            <p className="text-sm leading-[1.45] text-ink-2 lg:text-[15px] lg:leading-normal">
-              {p.resposta}
-            </p>
+          <div key={p.pergunta} className="landing-pergunta">
+            <h3 className="landing-pergunta-titulo">{p.pergunta}</h3>
+            <p className="landing-pergunta-resposta">{p.resposta}</p>
           </div>
         ))}
       </ListGroup>

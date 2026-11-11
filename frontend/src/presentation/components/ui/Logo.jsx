@@ -7,12 +7,9 @@ import { cn } from "@/presentation/utils/cn";
  */
 export function Logo({ className, as: Tag = "p" }) {
   return (
-    <Tag
-      className={cn("text-[26px] leading-none font-bold tracking-[-0.05em] text-ink", className)}
-      aria-label="MarqueiFlow"
-    >
-      marquei<span className="tracking-[-0.08em]">f</span>low
-      <span className="text-accent">.</span>
+    <Tag className={cn("logo", className)} aria-label="MarqueiFlow">
+      marquei<span className="logo-f">f</span>low
+      <span className="logo-ponto">.</span>
     </Tag>
   );
 }

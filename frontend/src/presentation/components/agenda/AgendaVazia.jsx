@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { ListGroup } from "@/presentation/components/ui/ListGroup";
 import { cn } from "@/presentation/utils/cn";
 import whatsappIcon from "@/presentation/assets/icons/whatsapp-16.svg";
@@ -7,10 +8,14 @@ import checkIcon from "@/presentation/assets/icons/check-14.svg";
 const SLUG = "rafabarber";
 const LINK = `https://marqueiflow.com.br/${SLUG}`;
 
-const abrirWhatsApp = () => {
-  const texto = `Agende seu horário comigo pelo link: ${LINK}`;
+const mandar = (texto) =>
   window.open(`https://wa.me/?text=${encodeURIComponent(texto)}`, "_blank", "noopener");
-};
+
+const abrirWhatsApp = () => mandar(`Agende seu horário comigo pelo link: ${LINK}`);
+
+// O WhatsApp abre com a mensagem pronta e deixa escolher para quem mandar.
+const chamarAntigos = () =>
+  mandar(`Oi! Agora dá para marcar horário comigo direto pelo link, sem precisar chamar: ${LINK}`);
 
 const copiarLink = async () => {
   try {
@@ -24,13 +29,22 @@ const PASSOS = [
   { id: "link", titulo: "Criar seu link", feito: true },
   { id: "bio", titulo: "Pôr o link na bio do Instagram", acao: "Copiar link", onClick: copiarLink },
   { id: "status", titulo: "Postar no status do WhatsApp", acao: "Abrir", onClick: abrirWhatsApp },
-  // TODO(AG-01): escolher clientes quando houver lista de clientes.
-  { id: "antigos", titulo: "Mandar para 5 clientes antigos", acao: "Escolher" },
+  {
+    id: "antigos",
+    titulo: "Mandar para 5 clientes antigos",
+    acao: "Escolher",
+    onClick: chamarAntigos,
+  },
 ];
 
-/** Agenda sem nenhum horário (primeiro dia): convite para divulgar o link e primeiros passos. */
+/**
+ * Agenda sem nenhum horário (primeiro dia): convite para divulgar o link e primeiros passos.
+ * Tocar na ação de um passo faz a ação e marca o passo como feito (só na tela).
+ */
 export function AgendaVazia() {
-  const feitos = PASSOS.filter((p) => p.feito).length;
+  const [marcados, setMarcados] = useState([]);
+  const passos = PASSOS.map((p) => ({ ...p, feito: p.feito || marcados.includes(p.id) }));
+  const feitos = passos.filter((p) => p.feito).length;
 
   return (
     <>
@@ -63,12 +77,12 @@ export function AgendaVazia() {
             Primeiros passos
           </h2>
           <p className="text-sm font-medium text-ink-2">
-            {feitos} de {PASSOS.length}
+            {feitos} de {passos.length}
           </p>
         </div>
 
         <ListGroup dividerClassName="pl-[50px]">
-          {PASSOS.map((passo) => (
+          {passos.map((passo) => (
             <div key={passo.id} className="flex items-center gap-3 p-3.5">
               {passo.feito ? (
                 <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-success">
@@ -86,10 +100,13 @@ export function AgendaVazia() {
                 {passo.titulo}
                 {passo.feito && <span className="sr-only"> (feito)</span>}
               </p>
-              {passo.acao && (
+              {passo.acao && !passo.feito && (
                 <button
                   type="button"
-                  onClick={passo.onClick}
+                  onClick={() => {
+                    passo.onClick();
+                    setMarcados((m) => [...m, passo.id]);
+                  }}
                   className="-my-3.5 flex h-11 shrink-0 pressable items-center text-sm font-semibold text-accent-strong"
                 >
                   {passo.acao}

@@ -10,17 +10,15 @@ export function ListGroup({ children, inset = false, dividerClassName, className
   const itens = Children.toArray(children).filter(Boolean);
 
   return (
-    <div
-      className={cn(
-        "flex w-full flex-col overflow-hidden rounded-2xl border border-line bg-surface",
-        className,
-      )}
-    >
+    <div className={cn("lista", className)}>
       {itens.map((item, i) => (
         <Fragment key={item.key ?? i}>
           {i > 0 && (
-            <div className={cn("flex", inset && "pl-4", dividerClassName)} aria-hidden="true">
-              <div className="h-px flex-1 bg-line" />
+            <div
+              className={cn("lista-divisoria", inset && "lista-divisoria-recuo", dividerClassName)}
+              aria-hidden="true"
+            >
+              <div className="lista-divisoria-linha" />
             </div>
           )}
           {item}

@@ -10,16 +10,10 @@ export function PhotoInput({ title, description, value, onChange, className }) {
     return () => URL.revokeObjectURL(preview);
   }, [preview]);
   return (
-    <div className={cn("flex w-full items-center gap-3.5", className)}>
-      <label
-        htmlFor={id}
-        className={cn(
-          "flex size-18 shrink-0 pressable items-center justify-center overflow-hidden rounded-full bg-surface",
-          !preview && "border-[1.5px] border-dashed border-ink-3",
-        )}
-      >
+    <div className={cn("foto", className)}>
+      <label htmlFor={id} className={cn("foto-botao", !preview && "foto-botao-vazio")}>
         {preview ? (
-          <img src={preview} alt="" className="size-full object-cover" />
+          <img src={preview} alt="" className="foto-imagem" />
         ) : (
           <img src={cameraIcon} alt="" width={24} height={24} />
         )}
@@ -32,9 +26,9 @@ export function PhotoInput({ title, description, value, onChange, className }) {
         className="sr-only"
         onChange={(e) => onChange(e.target.files?.[0] ?? null)}
       />
-      <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-        <p className="text-[15px] font-semibold tracking-[-0.15px] text-ink">{title}</p>
-        {description && <p className="text-[13px] text-ink-2">{description}</p>}
+      <div className="foto-texto">
+        <p className="foto-titulo">{title}</p>
+        {description && <p className="foto-descricao">{description}</p>}
       </div>
     </div>
   );

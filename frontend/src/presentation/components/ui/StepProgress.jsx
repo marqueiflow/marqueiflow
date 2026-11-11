@@ -3,7 +3,7 @@ import { cn } from "@/presentation/utils/cn";
 export function StepProgress({ current, total, className }) {
   return (
     <div
-      className={cn("flex w-full gap-1.5", className)}
+      className={cn("passos", className)}
       role="progressbar"
       aria-valuemin={1}
       aria-valuemax={total}
@@ -13,7 +13,10 @@ export function StepProgress({ current, total, className }) {
       {Array.from({ length: total }, (_, i) => (
         <span
           key={i}
-          className={cn("h-[3px] flex-1 rounded-[2px]", i < current ? "bg-ink" : "bg-line")}
+          className={cn(
+            "passos-barra",
+            i < current ? "passos-barra-feita" : "passos-barra-pendente",
+          )}
         />
       ))}
     </div>

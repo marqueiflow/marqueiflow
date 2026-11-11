@@ -24,22 +24,13 @@ export function LandingComoFunciona() {
       titulo="Como funciona"
       subtitulo="Três passos e sua agenda já recebe clientes."
     >
-      <ol className="flex flex-col gap-4 lg:flex-row">
+      <ol className="landing-passos">
         {PASSOS.map((p, i) => (
-          <li
-            key={p.titulo}
-            className="flex gap-3.5 rounded-2xl border border-line bg-surface p-4 lg:flex-1 lg:flex-col lg:p-6"
-          >
-            <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-ink text-[15px] font-semibold text-surface lg:size-9 lg:text-base">
-              {i + 1}
-            </span>
-            <div className="flex min-w-0 flex-col gap-1 lg:gap-3.5">
-              <h3 className="text-base font-semibold tracking-[-0.01em] text-ink lg:text-[19px] lg:tracking-[-0.015em]">
-                {p.titulo}
-              </h3>
-              <p className="text-sm leading-[1.45] text-ink-2 lg:text-[15px] lg:leading-normal">
-                {p.texto}
-              </p>
+          <li key={p.titulo} className="landing-passo">
+            <span className="landing-passo-numero">{i + 1}</span>
+            <div className="landing-passo-texto">
+              <h3 className="landing-passo-titulo">{p.titulo}</h3>
+              <p className="landing-passo-descricao">{p.texto}</p>
             </div>
           </li>
         ))}
