@@ -1,0 +1,9 @@
+# Guarda todo arquivo de texto com quebra de linha LF (padrão do Prettier),
+# para o Windows não marcar arquivos como alterados só por causa de CRLF.
+* text=auto eol=lf
+
+# Arquivos que não são texto.
+*.png binary
+*.jpg binary
+*.ico binary
+*.woff2 binary

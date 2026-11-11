@@ -1,12 +1,18 @@
 import { cn } from "@/presentation/utils/cn";
-/** Wordmark "agendeaqui." — o ponto laranja é o "aqui". Não alterar proporções. */
-export function Logo({ className }) {
+
+/**
+ * Wordmark "marqueiflow." (Figma · Identidade Visual). O "f" é mais apertado que o resto
+ * e o ponto laranja é "quem já marcou". Não alterar proporções.
+ * Tamanho padrão 26 px; para o selo pequeno, passe text-[13px] em className.
+ */
+export function Logo({ className, as: Tag = "p" }) {
   return (
-    <p
-      className={cn("text-[26px] leading-none font-bold tracking-[-1.3px] text-ink", className)}
-      aria-label="AgendeAqui"
+    <Tag
+      className={cn("text-[26px] leading-none font-bold tracking-[-0.05em] text-ink", className)}
+      aria-label="MarqueiFlow"
     >
-      agendeaqui<span className="text-accent">.</span>
-    </p>
+      marquei<span className="tracking-[-0.08em]">f</span>low
+      <span className="text-accent">.</span>
+    </Tag>
   );
 }

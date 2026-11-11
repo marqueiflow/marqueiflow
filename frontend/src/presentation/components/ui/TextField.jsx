@@ -9,8 +9,8 @@ const hintTones = {
 
 /**
  * Campo de texto (Figma · Componentes base). Em foco a borda fica preta.
- * prefix: texto fixo antes do valor (ex.: "agendeaqui.com.br/" ou "R$").
- * suffix: ícone no fim da caixa. hintTone: "neutro" | "sucesso" | "erro".
+ * prefix: texto fixo antes do valor (ex.: "marqueiflow.com.br/" ou "R$").
+ * suffix: ícone no fim da caixa. hintTone: "neutro" | "sucesso" | "erro" (erro também pinta a borda).
  */
 export function TextField({
   label,
@@ -39,6 +39,8 @@ export function TextField({
         className={cn(
           "flex h-13 w-full items-center rounded-[14px] border border-line bg-surface px-4",
           "focus-within:border-ink focus-within:ring-[0.5px] focus-within:ring-ink",
+          hintTone === "erro" &&
+            "border-danger ring-[0.5px] ring-danger focus-within:border-danger focus-within:ring-danger",
           suffix && "pr-3.5",
         )}
       >
