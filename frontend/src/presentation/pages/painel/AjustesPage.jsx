@@ -1,5 +1,9 @@
 // AJ-01 — Ajustes (só a tela; dados de exemplo do Figma)
+// "Sair" pede confirmação (modal P7) antes de voltar para a tela Entrar.
+import { useState } from "react";
+import { useNavigate } from "react-router";
 import { PainelLayout } from "@/presentation/components/painel/PainelLayout";
+import { SairDaContaSheet } from "@/presentation/components/ajustes/SairDaContaSheet";
 import { SecaoAjustes } from "@/presentation/components/ajustes/SecaoAjustes";
 import { IconButton } from "@/presentation/components/ui/IconButton";
 import copiarIcon from "@/presentation/assets/icons/copiar-15.svg";
@@ -9,7 +13,7 @@ const SLUG = "rafabarber";
 
 const copiarLink = async () => {
   try {
-    await navigator.clipboard.writeText(`https://agendeaqui.com.br/${SLUG}`);
+    await navigator.clipboard.writeText(`https://marqueiflow.com.br/${SLUG}`);
   } catch {
     // Sem permissão de área de transferência: nada a fazer nesta fase.
   }
@@ -30,10 +34,16 @@ const CONTA = [
   { id: "plano", label: "Plano", valor: "Grátis", to: "/painel/ajustes/plano" },
   { id: "privacidade", label: "Política de privacidade", to: "/privacidade" },
   { id: "termos", label: "Termos de uso", to: "/termos" },
-  { id: "sair", label: "Sair", to: "/entrar", perigo: true },
 ];
 
 export default function AjustesPage() {
+  const navigate = useNavigate();
+  const [saindo, setSaindo] = useState(false);
+  const conta = [
+    ...CONTA,
+    { id: "sair", label: "Sair", perigo: true, onClick: () => setSaindo(true) },
+  ];
+
   return (
     <PainelLayout aba="ajustes" className="gap-4 pt-4">
       <h1 className="text-[32px] leading-[1.1] font-semibold tracking-[-0.96px] text-ink">
@@ -49,7 +59,7 @@ export default function AjustesPage() {
             Rafa Barber
           </p>
           <p className="truncate text-[13px]">
-            <span className="text-ink-2">agendeaqui.com.br/</span>
+            <span className="text-ink-2">marqueiflow.com.br/</span>
             <span className="font-semibold text-ink">{SLUG}</span>
           </p>
         </div>
@@ -64,7 +74,14 @@ export default function AjustesPage() {
 
       <SecaoAjustes titulo="Atendimento" itens={ATENDIMENTO} />
       <SecaoAjustes titulo="Pagamento" itens={PAGAMENTO} />
-      <SecaoAjustes titulo="Conta" itens={CONTA} />
+      <SecaoAjustes titulo="Conta" itens={conta} />
+
+      {/* TODO(AJ-01): encerrar a sessão de verdade quando o back-end existir. */}
+      <SairDaContaSheet
+        open={saindo}
+        onClose={() => setSaindo(false)}
+        onConfirmar={() => navigate("/entrar")}
+      />
     </PainelLayout>
   );
 }

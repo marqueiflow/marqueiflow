@@ -5,7 +5,7 @@ import checkIcon from "@/presentation/assets/icons/check-14.svg";
 
 // Exemplo até existir back-end.
 const SLUG = "rafabarber";
-const LINK = `https://agendeaqui.com.br/${SLUG}`;
+const LINK = `https://marqueiflow.com.br/${SLUG}`;
 
 const abrirWhatsApp = () => {
   const texto = `Agende seu horário comigo pelo link: ${LINK}`;
@@ -43,7 +43,7 @@ export function AgendaVazia() {
         </p>
         <div className="flex items-center gap-2 rounded-full bg-white/8 py-1.5 pr-1.5 pl-3.5">
           <p className="min-w-0 flex-1 truncate text-[13px]">
-            <span className="text-ink-3">agendeaqui.com.br/</span>
+            <span className="text-ink-3">marqueiflow.com.br/</span>
             <span className="font-semibold text-surface">{SLUG}</span>
           </p>
           <button

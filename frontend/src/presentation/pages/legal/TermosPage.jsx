@@ -1,13 +1,13 @@
 // LGL-03 — Termos de uso (texto provisório do Figma 16; revisar com jurídico)
 import { LegalLayout } from "@/presentation/components/legal/LegalLayout";
 
-const EMAIL = "contato@agendeaqui.com.br";
+const EMAIL = "contato@marqueiflow.com.br";
 
 const SECOES = [
   {
-    titulo: "O que é o AgendeAqui",
+    titulo: "O que é o MarqueiFlow",
     texto:
-      "Uma ferramenta para o profissional mostrar seus horários livres e receber agendamentos por um link. O atendimento é prestado pelo profissional, não pelo AgendeAqui.",
+      "Uma ferramenta para o profissional mostrar seus horários livres e receber agendamentos por um link. O atendimento é prestado pelo profissional, não pelo MarqueiFlow.",
   },
   {
     titulo: "Para quem agenda",
@@ -27,7 +27,7 @@ const SECOES = [
   {
     titulo: "Uso proibido",
     texto:
-      "Não use o AgendeAqui para mandar spam, se passar por outra pessoa ou oferecer serviços ilegais.",
+      "Não use o MarqueiFlow para mandar spam, se passar por outra pessoa ou oferecer serviços ilegais.",
   },
   {
     titulo: "Mudanças nos termos",
@@ -48,7 +48,7 @@ export default function TermosPage() {
     <LegalLayout
       titulo="Termos de uso"
       atualizadoEm="9 de novembro de 2026"
-      intro="Ao usar o AgendeAqui, você concorda com estas regras. Elas valem para profissionais e para quem agenda."
+      intro="Ao usar o MarqueiFlow, você concorda com estas regras. Elas valem para profissionais e para quem agenda."
       secoes={SECOES}
     />
   );

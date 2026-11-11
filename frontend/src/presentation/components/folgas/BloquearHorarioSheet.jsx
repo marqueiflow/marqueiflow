@@ -1,4 +1,4 @@
-// AJ-06 — Modal P4 · Bloquear horário (só a tela; valores de exemplo do Figma)
+// AJ-06 — Modais P4 · Bloquear horário e P8 · Editar bloqueio (só a tela; valores de exemplo do Figma)
 import { useState } from "react";
 import { BottomSheet } from "@/presentation/components/ui/BottomSheet";
 import { Button } from "@/presentation/components/ui/Button";
@@ -16,28 +16,48 @@ const tipos = [
 ];
 
 // Exemplo até existir back-end.
-const QUANDO = [
-  { id: "dia", icone: calendarioIcon, label: "Dia", valor: "Ter, 24 de novembro" },
-  { id: "das", icone: relogioIcon, label: "Das", valor: "13:00" },
-  { id: "ate", icone: relogioIcon, label: "Até", valor: "15:00" },
-];
+const NOVO = {
+  tipo: "periodo",
+  dia: "Ter, 24 de novembro",
+  das: "13:00",
+  ate: "15:00",
+  motivo: "",
+};
 
-export function BloquearHorarioSheet({ open, onClose }) {
-  const [tipo, setTipo] = useState("periodo");
-  const [motivo, setMotivo] = useState("");
+/**
+ * Sem "bloqueio": cria um bloqueio novo (P4).
+ * Com "bloqueio" ({ tipo, dia, das, ate, motivo }): edita esse bloqueio (P8), com "Remover bloqueio".
+ * Para trocar de bloqueio, mude a key (os campos começam com os valores dele).
+ * onRemover: tocou em "Remover bloqueio".
+ */
+export function BloquearHorarioSheet({ open, onClose, bloqueio, onRemover }) {
+  const inicial = bloqueio ?? NOVO;
+  const [tipo, setTipo] = useState(inicial.tipo);
+  const [motivo, setMotivo] = useState(inicial.motivo);
+
+  // Dia inteiro não tem horas.
+  const quando = [
+    { id: "dia", icone: calendarioIcon, label: "Dia", valor: inicial.dia },
+    { id: "das", icone: relogioIcon, label: "Das", valor: inicial.das ?? NOVO.das },
+    { id: "ate", icone: relogioIcon, label: "Até", valor: inicial.ate ?? NOVO.ate },
+  ].filter((q) => q.id === "dia" || tipo !== "dia");
 
   return (
     <BottomSheet
       open={open}
       onClose={onClose}
-      title="Bloquear horário"
-      description="Os horários somem do seu link. Quem já marcou não é afetado."
+      title={bloqueio ? "Editar bloqueio" : "Bloquear horário"}
+      description={
+        bloqueio
+          ? "Mude o dia ou as horas. Se remover, o horário volta para o seu link."
+          : "Os horários somem do seu link. Quem já marcou não é afetado."
+      }
     >
       <ChoiceChips label="Tipo de bloqueio" options={tipos} value={tipo} onChange={setTipo} />
 
       {/* TODO(AJ-06): escolher dia e horas. */}
       <ListGroup inset className="leading-[normal]">
-        {QUANDO.map((q) => (
+        {quando.map((q) => (
           <button
             key={q.id}
             type="button"
@@ -58,9 +78,16 @@ export function BloquearHorarioSheet({ open, onClose }) {
         onChange={(e) => setMotivo(e.target.value)}
       />
 
-      <Button className="w-full" onClick={onClose}>
-        Bloquear horário
-      </Button>
+      <div className="flex flex-col gap-1.5">
+        <Button className="w-full" onClick={onClose}>
+          {bloqueio ? "Salvar alterações" : "Bloquear horário"}
+        </Button>
+        {bloqueio && (
+          <Button variant="texto" className="w-full text-danger" onClick={onRemover}>
+            Remover bloqueio
+          </Button>
+        )}
+      </div>
     </BottomSheet>
   );
 }

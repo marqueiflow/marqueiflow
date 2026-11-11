@@ -7,7 +7,7 @@ import qrIlustrativo from "@/presentation/assets/images/qr-ilustrativo.svg";
 
 // Exemplo até existir back-end.
 const SLUG = "rafabarber";
-const LINK = `agendeaqui.com.br/${SLUG}`;
+const LINK = `marqueiflow.com.br/${SLUG}`;
 
 export default function CadastroProntoPage() {
   const [copiado, setCopiado] = useState(false);
@@ -28,7 +28,7 @@ export default function CadastroProntoPage() {
   };
 
   return (
-    <div className="mx-auto flex min-h-dvh w-full max-w-[430px] flex-col bg-paper pt-3">
+    <div className="mx-auto flex w-full max-w-[430px] flex-1 flex-col bg-paper pt-3">
       <main className="flex flex-1 flex-col items-center gap-5 px-5 pt-9 pb-4 text-center">
         <div className="flex size-14 items-center justify-center rounded-full bg-success-soft">
           <img src={checkIcon} alt="" width={26} height={26} />
@@ -42,7 +42,7 @@ export default function CadastroProntoPage() {
 
         <div className="flex w-full items-center gap-2.5 rounded-full bg-ink py-2 pr-2 pl-4.5">
           <p className="min-w-0 flex-1 truncate text-left text-[15px]">
-            <span className="text-ink-3">agendeaqui.com.br/</span>
+            <span className="text-ink-3">marqueiflow.com.br/</span>
             <span className="font-semibold text-surface">{SLUG}</span>
           </p>
           <button

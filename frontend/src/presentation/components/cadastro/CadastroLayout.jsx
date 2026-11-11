@@ -33,7 +33,7 @@ export function CadastroLayout({
     <form
       onSubmit={handleSubmit}
       noValidate
-      className="mx-auto flex min-h-dvh w-full max-w-[430px] flex-col bg-paper pt-3"
+      className="mx-auto flex w-full max-w-[430px] flex-1 flex-col bg-paper pt-3"
     >
       <header className="flex h-13 items-center justify-between px-5">
         <div className="flex min-w-25 items-center">

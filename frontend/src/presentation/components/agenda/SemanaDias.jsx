@@ -6,16 +6,16 @@ import setaIcon from "@/presentation/assets/icons/seta-direita-16-clara.svg";
 /**
  * Dias da semana com a ocupação de cada um.
  * dias: { id, semana, dia, ocupados, total, hoje?, aviso?, fechado? }.
+ * Tocar no dia abre a agenda dele; o de hoje abre a Agenda de hoje.
  * aviso: texto em laranja (ex.: "Quase lotado"); a barra também fica laranja.
  */
 export function SemanaDias({ dias }) {
   return (
     <ListGroup dividerClassName="pl-[72px]" className="leading-[normal]">
       {dias.map((d) => (
-        // TODO(AG-03): abrir o dia escolhido (por enquanto só existe o de hoje).
         <Link
           key={d.id}
-          to="/painel"
+          to={d.hoje ? "/painel" : `/painel/semana/${d.dia}`}
           className="flex pressable items-center gap-3.5 py-3 pr-3 pl-3.5 active:scale-100 active:bg-paper"
         >
           <span
